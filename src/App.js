@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import FetchFromFile from "./FetchFromField.js";
+import FetchFromURL from "./FetchFromURL.js";
 
 function App() {
+  const [bool, setBool] = useState(true);
+  const [btnTxt, setBtnTxt] = useState("Fetch Data From URL");
+  function showFetchData() {
+    setBool(!bool);
+    if (bool === true) {
+      setBtnTxt("Fetch Data From JSON File");
+    } else {
+      setBtnTxt("Fetch Data From URL");
+    }
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button className="submit-btn" onClick={showFetchData}>
+        {btnTxt}
+      </button>
+      {bool === true ? <FetchFromFile /> : <FetchFromURL />}
     </div>
   );
 }
